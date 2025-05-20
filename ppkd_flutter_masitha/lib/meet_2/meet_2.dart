@@ -6,7 +6,8 @@ class MeetDua extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.amber, title: Text("Meet Dua")),
+      appBar: AppBar(
+        backgroundColor: Colors.amber, title: Text("Meet Dua")),
       body: Column(
         children: [
           //Materi SizedBox
