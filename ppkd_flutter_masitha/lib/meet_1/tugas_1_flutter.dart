@@ -11,12 +11,6 @@ class Tugas1Flutter extends StatelessWidget {
         title: const Text("PROFIL SAYA" ,),
         centerTitle: true,
       ),
-      backgroundColor: Colors.grey[100], // Background color
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 175, 146, 241),
-        child: const Icon(Icons.add_link, color: Colors.white),
-        onPressed: () {}, // Kosongkan dulu
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
