@@ -22,7 +22,7 @@ class Tugas1Flutter extends StatelessWidget {
           Text(" "),
           Row(
             children: [
-              Icon(Icons.location_on, color: Color.fromARGB(255, 0, 0, 0)),
+              Icon(Icons.location_on, color: Color.fromARGB(255, 88, 76, 253)),
               Text("DK Jakarta Selatan", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
             ],
           ),
