@@ -17,11 +17,10 @@ Widget build(BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.start,
         children: const [
           DrawerHeader(
-            decoration: BoxDecoration(color: Colors.deepPurpleAccent),
             child: Text(
-              'MENU',
+              'Setting and activity',
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
               ),
@@ -150,7 +149,7 @@ Widget build(BuildContext context) {
           ),
 
           // Spacer & Hiasan Visual di bawah
-          const SizedBox(height: 215),
+          const SizedBox(height: 220),
           Container(
             height: 50,
             decoration: BoxDecoration(
