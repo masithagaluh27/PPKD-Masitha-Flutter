@@ -80,75 +80,70 @@ class TugasEmpatFlutter extends StatelessWidget {
           ),
           const SizedBox(height: 10),
 
-          // Produk 1
-          ListTile(
-            leading: Image.asset(
-              "assets/image/produk 1.jpeg",
-              height: 120,
-              width: 120,
-            ),
-            title: Text("Motor saya "),
-            subtitle: Text("Rp. 5.000.000.000"),
+          // Produk (masing-masing dibungkus container)
+          _buildProductTile(
+            "assets/image/produk 1.jpeg",
+            "Motor saya",
+            "Rp. 5.000.000.000",
           ),
-          const Divider(),
-
-          // Produk 2
-          ListTile(
-            leading: Image.asset(
-              "assets/image/produk 2.jpeg",
-              height: 120,
-              width: 120,
-            ),
-            title: Text("beat hitam"),
-            subtitle: Text("Rp. 15.000.000.000.000"),
+          _buildProductTile(
+            "assets/image/produk 2.jpeg",
+            "beat hitam",
+            "Rp. 15.000.000.000.000",
           ),
-          const Divider(),
-
-          // Produk 3
-          ListTile(
-            leading: Image.asset(
-              "assets/image/produk 3.jpeg",
-              height: 120,
-              width: 120,
-            ),
-            title: Text("motor biru elektrik"),
-            subtitle: Text("Rp. 700.000.00.000"),
+          _buildProductTile(
+            "assets/image/produk 3.jpeg",
+            "motor biru elektrik",
+            "Rp. 700.000.00.000",
           ),
-          const Divider(),
-
-          // Produk 4
-          ListTile(
-            leading: Image.asset(
-              "assets/image/produk 5.jpeg",
-              height: 120,
-              width: 120,
-            ),
-            title: Text("harley david"),
-            subtitle: Text("Rp. 5.000"),
+          _buildProductTile(
+            "assets/image/produk 5.jpeg",
+            "harley david",
+            "Rp. 5.000",
           ),
-          const Divider(),
-
-          // Produk 5
-          ListTile(
-            leading: Image.asset(
-              "assets/image/produk 4.jpeg",
-              height: 120,
-              width: 120,
-            ),
-            title: Text("motor cbrrrrr"),
-            subtitle: Text("Rp. 500.000"),
+          _buildProductTile(
+            "assets/image/produk 4.jpeg",
+            "motor cbrrrrr",
+            "Rp. 500.000",
           ),
-          // Produk 6
-          ListTile(
-            leading: Image.asset(
-              "assets/image/prodk 6.jpeg",
-              height: 120,
-              width: 120,
-            ),
-            title: Text("musang + kandang"),
-            subtitle: Text("Rp. 1.000.000.000.000.000.000"),
+          _buildProductTile(
+            "assets/image/prodk 6.jpeg",
+            "musang + kandang",
+            "Rp. 1.000.000.000.000.000.000",
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildProductTile(String imagePath, String title, String subtitle) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xfff5f5f5),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade300),
+      ),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(12),
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.asset(
+            imagePath,
+            width: 100,
+            height: 100,
+            fit: BoxFit.cover,
+          ),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        subtitle: Text(subtitle, style: const TextStyle(color: Colors.black54)),
+        trailing: const Icon(
+          Icons.shopping_cart_outlined,
+          color: Colors.pinkAccent,
+        ),
       ),
     );
   }

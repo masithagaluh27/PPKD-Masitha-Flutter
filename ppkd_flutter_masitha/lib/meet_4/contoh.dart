@@ -1,31 +1,27 @@
 import 'package:flutter/material.dart';
 
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//  import 'package:flutter/material.dart';
-
-// void main() {
-//   runApp(MaterialApp(home: FormulirDaftarProduk()));
-
 @override
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
-      backgroundColor: Color(0xffCDC1FF),
-      title: Text("Formulir & Daftar Produk"),
+      title: const Text('MASHISHOP'),
+      leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
+      centerTitle: true,
+      backgroundColor: const Color(0xffF7CFD8),
     ),
     body: ListView(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(16),
       children: [
-        // Formulir Pengguna
         const Text(
           "Formulir Pengguna",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            fontStyle: FontStyle.italic,
+          ),
         ),
         const SizedBox(height: 11),
 
-        // Nama
         const TextField(
           decoration: InputDecoration(
             labelText: "Nama",
@@ -35,7 +31,6 @@ Widget build(BuildContext context) {
         ),
         const SizedBox(height: 10),
 
-        // Email
         const TextField(
           decoration: InputDecoration(
             labelText: 'Email',
@@ -45,7 +40,6 @@ Widget build(BuildContext context) {
         ),
         const SizedBox(height: 10),
 
-        // No HP
         const TextField(
           decoration: InputDecoration(
             labelText: "No HP",
@@ -55,9 +49,8 @@ Widget build(BuildContext context) {
         ),
         const SizedBox(height: 10),
 
-        // Deskripsi
         const TextField(
-          maxLines: 4, // Maksimal 4 baris
+          maxLines: 4,
           decoration: InputDecoration(
             labelText: 'Deskripsi',
             prefixIcon: Icon(Icons.description),
@@ -67,52 +60,76 @@ Widget build(BuildContext context) {
         ),
         const SizedBox(height: 20),
 
-        // Daftar Produk
         const Text(
           "Daftar Produk",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
 
-        // Produk 1
-        ListTile(
-          leading: Icon(Icons.phone_android),
-          title: Text("Smartphone A"),
-          subtitle: Text("Rp. 2.000.000"),
+        // Produk (masing-masing dibungkus container)
+        _buildProductTile(
+          "assets/image/produk 1.jpeg",
+          "Motor saya",
+          "Rp. 5.000.000.000",
         ),
-        const Divider(),
-
-        // Produk 2
-        ListTile(
-          leading: Icon(Icons.laptop),
-          title: Text("Laptop B"),
-          subtitle: Text("Rp. 5.500.000"),
+        _buildProductTile(
+          "assets/image/produk 2.jpeg",
+          "beat hitam",
+          "Rp. 15.000.000.000.000",
         ),
-        const Divider(),
-
-        // Produk 3
-        ListTile(
-          leading: Icon(Icons.headset),
-          title: Text("Headset C"),
-          subtitle: Text("Rp. 700.000"),
+        _buildProductTile(
+          "assets/image/produk 3.jpeg",
+          "motor biru elektrik",
+          "Rp. 700.000.00.000",
         ),
-        const Divider(),
-
-        // Produk 4
-        ListTile(
-          leading: Icon(Icons.tv),
-          title: Text("TV D"),
-          subtitle: Text("Rp. 3.000.000"),
+        _buildProductTile(
+          "assets/image/produk 5.jpeg",
+          "harley david",
+          "Rp. 5.000",
         ),
-        const Divider(),
-
-        // Produk 5
-        ListTile(
-          leading: Icon(Icons.watch),
-          title: Text("Smartwatch E"),
-          subtitle: Text("Rp. 1.200.000"),
+        _buildProductTile(
+          "assets/image/produk 4.jpeg",
+          "motor cbrrrrr",
+          "Rp. 500.000",
+        ),
+        _buildProductTile(
+          "assets/image/prodk 6.jpeg",
+          "musang + kandang",
+          "Rp. 1.000.000.000.000.000.000",
         ),
       ],
+    ),
+  );
+}
+
+Widget _buildProductTile(String imagePath, String title, String subtitle) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 8),
+    decoration: BoxDecoration(
+      color: const Color(0xfff5f5f5),
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: Colors.grey.shade300),
+    ),
+    child: ListTile(
+      contentPadding: const EdgeInsets.all(12),
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Image.asset(
+          imagePath,
+          width: 100,
+          height: 100,
+          fit: BoxFit.cover,
+        ),
+      ),
+      title: Text(
+        title,
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      subtitle: Text(subtitle, style: const TextStyle(color: Colors.black54)),
+      trailing: const Icon(
+        Icons.shopping_cart_outlined,
+        color: Colors.pinkAccent,
+      ),
     ),
   );
 }
