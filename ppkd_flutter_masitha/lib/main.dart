@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:ppkd_flutter_masitha/meet_4/tugas_3_flutter.dart';
-import 'package:ppkd_flutter_masitha/meet_4/tugas_4_flutter.dart';
+import 'package:ppkd_flutter_masitha/meet_5/tugas_5_flutter.dart';
 // import 'package:ppkd_flutter_masitha/meet_2/contoh.dart';
 // import 'package:ppkd_flutter_masit
 // ha/meet_2/meet_2.dart';
@@ -20,10 +19,10 @@ class MyApp extends StatelessWidget {
       title: 'Tugas 1 Flutter', // nama aplikasi
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 210, 171, 255),
+          seedColor: const Color.fromARGB(255, 197, 147, 253),
         ),
       ),
-      home: const TugasEmpatFlutter(),
+      home: const Tugas5Flutter(),
     );
   }
 }
