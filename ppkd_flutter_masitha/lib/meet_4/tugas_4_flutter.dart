@@ -15,7 +15,7 @@ class TugasEmpatFlutter extends StatelessWidget {
           },
         ),
         centerTitle: true,
-        backgroundColor: const Color(0xffF7CFD8),
+        backgroundColor: const Color(0xffDEBACE),
       ),
       body: ListView(
         padding: const EdgeInsets.all(10),
@@ -80,7 +80,7 @@ class TugasEmpatFlutter extends StatelessWidget {
                 print("Formulir disubmit!");
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 230, 129, 154),
+                backgroundColor: const Color(0xffEEB0B0),
                 minimumSize: const Size(100, 36),
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 shape: RoundedRectangleBorder(
