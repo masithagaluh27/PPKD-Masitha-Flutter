@@ -44,11 +44,7 @@ class _Tugas5FlutterState extends State<Tugas5Flutter> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (nama.isEmpty) {
-                    nama = 'Nama saya: MASITHA';
-                  } else {
-                    nama = '';
-                  }
+                  nama = nama.isEmpty ? 'Nama saya: Mashi' : '';
                 });
               },
               child: const Text('Tampilkan Nama'),
