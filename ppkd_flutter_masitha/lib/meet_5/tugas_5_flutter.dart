@@ -8,7 +8,7 @@ class Tugas5Flutter extends StatefulWidget {
 }
 
 class _Tugas5FlutterState extends State<Tugas5Flutter> {
-  String nama = 'Mashi';
+  String nama = '';
   bool isLiked = false;
   bool showDescription = false;
   int counter = 0;
@@ -24,8 +24,19 @@ class _Tugas5FlutterState extends State<Tugas5Flutter> {
       appBar: AppBar(
         title: const Text('Halaman Interaktif Pengguna'),
         centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xffEAB8E4), Color(0xff9B7EBD)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
         backgroundColor: Color(0xff9B7EBD),
       ),
+
+      //button untuk menambah counter
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
@@ -38,7 +49,7 @@ class _Tugas5FlutterState extends State<Tugas5Flutter> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // ElevatedButton
             ElevatedButton(
@@ -53,10 +64,11 @@ class _Tugas5FlutterState extends State<Tugas5Flutter> {
             // Tampilkan teks otomatis hilang saat nama = '')
             Text(nama),
 
-            const SizedBox(height: 22),
+            const SizedBox(height: 19),
 
-            // IconButton + teks "Disukai"
+            // IconButton & teks "Disukai"
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
                   onPressed: () {
@@ -74,8 +86,8 @@ class _Tugas5FlutterState extends State<Tugas5Flutter> {
                   ),
               ],
             ),
+            SizedBox(height: 30),
 
-            // TextButton
             TextButton(
               onPressed: () {
                 setState(() {
@@ -88,11 +100,11 @@ class _Tugas5FlutterState extends State<Tugas5Flutter> {
               const Padding(
                 padding: EdgeInsets.only(top: 8),
                 child: Text(
-                  'Ini adalah deskripsi tambahan yang muncul ketika tombol ditekan.',
+                  'Ini adalah teks yang muncul saat tulisan "Lihat Selengkapnya" di tekan.',
                 ),
               ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: 40),
 
             // Counter display
             Text(
@@ -100,7 +112,7 @@ class _Tugas5FlutterState extends State<Tugas5Flutter> {
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: 50),
 
             // InkWell membungkus Container berwarna
             InkWell(
@@ -127,7 +139,7 @@ class _Tugas5FlutterState extends State<Tugas5Flutter> {
                         : null,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
 
             // GestureDetector membungkus teks
             GestureDetector(
@@ -137,11 +149,11 @@ class _Tugas5FlutterState extends State<Tugas5Flutter> {
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  'Tekan Aku',
+                  'Tekan Akuuuu',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple,
+                    color: Color.fromARGB(255, 120, 94, 165),
                   ),
                 ),
               ),
