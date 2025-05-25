@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppkd_flutter_masitha/meet_6/contohlain.dart';
 import 'package:ppkd_flutter_masitha/meet_6/tugas_6_flutter.dart';
 // import 'package:ppkd_flutter_masitha/meet_2/contoh.dart';
 // import 'package:ppkd_flutter_masit
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
           seedColor: const Color.fromARGB(255, 197, 147, 253),
         ),
       ),
-      home: TugasEnamFlutter(),
+      home: LoginPage(),
     );
   }
 }
