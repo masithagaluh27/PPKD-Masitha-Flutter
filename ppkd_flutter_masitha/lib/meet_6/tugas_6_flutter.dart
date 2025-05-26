@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppkd_flutter_masitha/meet_5/meet_5a.dart';
 
 void main() {
   runApp(const MaterialApp(home: TugasEnamFlutter()));
@@ -136,7 +137,12 @@ class _TugasEnamFlutterState extends State<TugasEnamFlutter> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MeetLima()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),
                     backgroundColor: Colors.blue.shade900,
