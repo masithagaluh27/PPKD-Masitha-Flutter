@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ppkd_flutter_masitha/meet_6/tugas_6_flutter.dart';
+import 'package:ppkd_flutter_masitha/meet_11/meet_11a.dart';
 
 // import 'package:ppkd_flutter_masitha/meet_2/contoh.dart';
 // import 'package:ppkd_flutter_masit
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffFFFFFF)),
       ),
-      home: TugasEnamFlutter(),
+      home: MeetSebelasA(),
     );
   }
 }
