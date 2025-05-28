@@ -1,43 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:ppkd_flutter_masitha/meet_11/meet_11a.dart';
-import 'meet_5/tugas_5_flutter.dart';
-import 'meet_6/tugas_6_flutter.dart';
-import 'meet_2/tugas_2_flutter.dart';
-import 'meet_3/meet_3a.dart';
+import 'package:ppkd_flutter_masitha/meet_12/tugas_7-8_flutter.dart';
 
-
-void main() {} class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
+void main() {
+  runApp(const MyApp());
 }
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "/",
-      routes: {
-        //Harus didaftarkan dulu disini
-        "/": (context) => (),TugasEnamFlutter
-        "/meet_2": (context) => Tugas5Flutter(),
-        MeetTigaA.id: (context) => Tugas2Flutter(),
-      },
       debugShowCheckedModeBanner: false,
-      title: 'PPKD B 2',
-
+      title: "Tugas 8 Flutter",
       theme: ThemeData(
-        // useMaterial3: true,
-        fontFamily: 'Poppins',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        pageTransitionsTheme: PageTransitionsTheme(
-          builders: {TargetPlatform.android: CupertinoPageTransitionsBuilder()},
-        ),
+        fontFamily: '',
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffC599B6)),
       ),
-      home: MeetLima(),
-      // home: LoginScreen(),
+      home: const Tugas8Flutter(),
     );
   }
 }
