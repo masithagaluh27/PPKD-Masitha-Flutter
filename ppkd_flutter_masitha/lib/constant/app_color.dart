@@ -8,4 +8,5 @@ class AppColor {
   static const Color army1 = Color(0xff73946B);
   static const Color army2 = Color(0xffD2D0A0);
   static const Color army3 = Color(0xff9EBC8A);
+  static const Color pinky = Color(0xffF49BAB);
 }

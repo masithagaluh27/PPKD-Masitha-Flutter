@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ppkd_flutter_masitha/constant/App_Style.dart';
 import 'package:ppkd_flutter_masitha/constant/app_color.dart';
-import 'package:ppkd_flutter_masitha/constant/app_style.dart';
 
 class CheckBoxCustom extends StatefulWidget {
   const CheckBoxCustom({super.key, this.valueCheck});
