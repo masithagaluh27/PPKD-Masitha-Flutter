@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ppkd_flutter_masitha/meet_12/tugas_7-8_flutter.dart';
+import 'package:ppkd_flutter_masitha/meet_13/tugas_9_flutter/homescreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         fontFamily: '',
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffC599B6)),
       ),
-      home: const Tugas8Flutter(),
+      home: const Homescreen(),
     );
   }
 }

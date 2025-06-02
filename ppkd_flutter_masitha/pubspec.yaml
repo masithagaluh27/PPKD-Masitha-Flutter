@@ -74,6 +74,18 @@ flutter:
     - assets/image/logo facebook.PNG
     - assets/image/iconGoogle.PNG
     - assets/image/online.png
+    - assets/image/hancaplas.jpeg
+    - assets/image/hand_sanitizer.jpeg
+    - assets/image/masker.jpeg
+    - assets/image/minyak_kp.jpeg
+    - assets/image/obat_batuk.jpeg
+    - assets/image/sabun_antiseptik.jpeg
+    - assets/image/thermometer.jpeg
+    - assets/image/vitamin_anak.jpeg
+    - assets/image/vitamin_c.jpeg
+    - assets/image/timbangan_ungu.jpeg
+
+    
   
     # - images/a_dot_ham.jpeg
 
