@@ -8,6 +8,7 @@ class ListProduk extends StatefulWidget {
 }
 
 class _ListProdukState extends State<ListProduk> {
+  //list produk
   final List<String> kategoriProduk = [
     'Buah-buahan',
     'Sayuran',

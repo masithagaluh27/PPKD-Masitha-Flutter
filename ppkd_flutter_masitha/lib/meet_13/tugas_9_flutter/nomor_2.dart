@@ -7,6 +7,7 @@ class KategoriMapProduk extends StatefulWidget {
   State<KategoriMapProduk> createState() => _KategoriMapProdukState();
 }
 
+// produk
 class _KategoriMapProdukState extends State<KategoriMapProduk> {
   final List<Map<String, dynamic>> produkKesehatan = [
     {'nama': 'Vitamin C 1000mg', 'ikon': Icons.local_hospital},
@@ -32,7 +33,7 @@ class _KategoriMapProdukState extends State<KategoriMapProduk> {
           return ListTile(
             leading: Icon(
               produk['ikon'],
-              color: const Color.fromARGB(255, 122, 182, 250),
+              color: const Color.fromARGB(255, 67, 114, 168),
             ),
             title: Text(produk['nama']),
           );
