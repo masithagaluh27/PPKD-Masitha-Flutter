@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'konfirmasi_page.dart';
 
 class FormulirPendaftaran extends StatefulWidget {
@@ -11,7 +12,7 @@ class FormulirPendaftaran extends StatefulWidget {
 class _FormulirPendaftaranState extends State<FormulirPendaftaran> {
   final _formKey = GlobalKey<FormState>();
 
-  // Gunakan variabel biasa, tidak pakai controller
+  // Gunakan variabel biasa
   String nama = '';
   String email = '';
   String hp = '';
@@ -19,6 +20,7 @@ class _FormulirPendaftaranState extends State<FormulirPendaftaran> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
+      //ini untuk setelah user tekan submit
       showDialog(
         context: context,
         builder:
@@ -37,12 +39,15 @@ class _FormulirPendaftaranState extends State<FormulirPendaftaran> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.pop(context); // tutup dialog
+                    Navigator.pop(context);
                     Navigator.push(
                       context,
+
+                      //ini untuk disambungkan ke konfirmasti page
                       MaterialPageRoute(
                         builder:
-                            (_) => ConfirmationPage(nama: nama, kota: kota),
+                            (context) =>
+                                ConfirmationPage(nama: nama, kota: kota),
                       ),
                     );
                   },
@@ -54,6 +59,7 @@ class _FormulirPendaftaranState extends State<FormulirPendaftaran> {
     }
   }
 
+  //untuk bagian formulir pendaftrannya nya
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +106,7 @@ class _FormulirPendaftaranState extends State<FormulirPendaftaran> {
                             ? 'Kota wajib diisi'
                             : null,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: _submitForm,
                 child: const Text("Daftar"),

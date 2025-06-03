@@ -7,20 +7,39 @@ class Tugas10Flutter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Open Recruitment")),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Open Recruitment"),
+        backgroundColor: Color(0xff7F8CAA),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
             const Text(
               "Pendaftaran Kelas Flutter Telah Dibuka!",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              " DAFTAR SEKARANG !",
+
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {},
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFF6ECFF),
+                minimumSize: const Size(350, 45),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
               child: const Text("Tidak Tertarik"),
             ),
             const SizedBox(height: 10),
@@ -29,10 +48,18 @@ class Tugas10Flutter extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const FormulirPendaftaran(),
+                    builder: (context) => const FormulirPendaftaran(),
                   ),
                 );
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFF6ECFF),
+                minimumSize: const Size(350, 45),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
               child: const Text("Daftar"),
             ),
           ],

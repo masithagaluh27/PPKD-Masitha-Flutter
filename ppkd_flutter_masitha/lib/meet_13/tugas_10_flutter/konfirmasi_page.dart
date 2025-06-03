@@ -14,7 +14,11 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Konfirmasi")),
+      backgroundColor: Color(0xffC4E1E6),
+      appBar: AppBar(
+        title: const Text("Konfirmasi"),
+        backgroundColor: Color(0xffC4E1E6),
+      ),
       body: Center(
         child: Text(
           "Terima kasih, ${widget.nama} dari ${widget.kota} telah mendaftar.",
