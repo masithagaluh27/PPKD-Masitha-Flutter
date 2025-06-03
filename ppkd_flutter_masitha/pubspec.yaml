@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_easyloading: ^3.0.5
   intl: ^0.20.2
+  shared_preferences: ^2.5.3
   font_awesome_flutter: ^10.1.0
 
 dev_dependencies:
@@ -74,16 +75,8 @@ flutter:
     - assets/image/logo facebook.PNG
     - assets/image/iconGoogle.PNG
     - assets/image/online.png
-    - assets/image/hancaplas.jpeg
-    - assets/image/hand_sanitizer.jpeg
-    - assets/image/masker.jpeg
-    - assets/image/minyak_kp.jpeg
-    - assets/image/obat_batuk.jpeg
-    - assets/image/sabun_antiseptik.jpeg
-    - assets/image/thermometer.jpeg
-    - assets/image/vitamin_anak.jpeg
-    - assets/image/vitamin_c.jpeg
-    - assets/image/timbangan_ungu.jpeg
+    - assets/image/
+    
 
     
   

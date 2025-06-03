@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MeetEmpatA extends StatelessWidget {
   const MeetEmpatA({super.key});
-
+  static const String id = '/halaman 6';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
