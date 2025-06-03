@@ -116,21 +116,17 @@ class _ProdukKesehatanScreenState extends State<ProdukKesehatanScreen> {
                 ],
               ),
               child: ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    product.gambar ?? '',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
+                leading: Image.asset(
+                  product.gambar ?? '',
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
                 ),
                 title: Text(product.nama ?? ""),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Rp. ${product.harga}" ?? ""),
-
                     const SizedBox(height: 4),
                     Text(
                       product.deskripsi ?? "",
@@ -140,7 +136,9 @@ class _ProdukKesehatanScreenState extends State<ProdukKesehatanScreen> {
                 ),
                 trailing: IconButton(
                   icon: const Icon(Icons.shopping_cart),
-                  onPressed: () {},
+                  onPressed: () {
+                    // Aksi saat tombol ditekan
+                  },
                 ),
               ),
             ),

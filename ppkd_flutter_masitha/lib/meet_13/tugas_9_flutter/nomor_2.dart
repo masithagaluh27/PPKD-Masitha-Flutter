@@ -7,7 +7,6 @@ class KategoriMapProduk extends StatefulWidget {
   State<KategoriMapProduk> createState() => _KategoriMapProdukState();
 }
 
-// produk
 class _KategoriMapProdukState extends State<KategoriMapProduk> {
   final List<Map<String, dynamic>> produkKesehatan = [
     {'nama': 'Vitamin C 1000mg', 'ikon': Icons.local_hospital},
