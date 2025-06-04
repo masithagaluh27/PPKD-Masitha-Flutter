@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ppkd_flutter_masitha/constant/app_style.dart';
 import 'package:ppkd_flutter_masitha/helper/preference.dart';
-import 'package:ppkd_flutter_masitha/meet_12/tugas_7-8_flutter.dart';
+// import 'package:ppkd_flutter_masitha/meet_12/tugas_7-8_flutter.dart';
+import 'package:ppkd_flutter_masitha/meet_16/login_screen_app.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,17 +16,21 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 3), () async {
       bool isLogin = await PreferenceHandler.getLogin();
       print("isLogin: $isLogin");
-      if (isLogin) {
-        return Navigator.pushNamedAndRemoveUntil(
-          context,
-          Tugas8Flutter.id,
-          (route) => false,
-        );
-      } else {
-        Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
-      }
+      //       if (isLogin) {
+      //         return Navigator.pushNamedAndRemoveUntil(
+      //           context,
+      //           Tugas8Flutter.id,
+      //           (route) => false,
+      //         );
+      // } else {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        LoginScreenApp.id,
+        (route) => false,
+      );
     });
   }
+  // }
 
   @override
   void initState() {

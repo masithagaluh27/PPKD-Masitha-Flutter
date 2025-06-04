@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ppkd_flutter_masitha/meet_12/tugas_7-8_flutter.dart';
-import 'package:ppkd_flutter_masitha/meet_4/meet_4a.dart';
-import 'package:ppkd_flutter_masitha/meet_6/tugas_6_flutter.dart';
+import 'package:ppkd_flutter_masitha/meet_12/meet_12a.dart';
+import 'package:ppkd_flutter_masitha/meet_16/login_screen_app.dart';
+import 'package:ppkd_flutter_masitha/meet_16/register_screen_app.dart';
 import 'package:ppkd_flutter_masitha/splash_screen.dart';
 // import 'package:ppkd_flutter_masitha/meet_13/tugas_9_flutter/homescreen_tugas_9.dart';
 
@@ -19,9 +19,13 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const SplashScreen(),
-        '/login': (context) => const TugasEnamFlutter(),
-        '/home': (context) => const Tugas8Flutter(),
-        MeetEmpatA.id: (context) => const MeetEmpatA(),
+        '/login': (context) => const LoginScreenApp(),
+        '/halaman 8': (context) => const LoginScreenApp(),
+        '/halaman ': (context) => const RegisterScreenApp(),
+        LoginScreenApp.id: (context) => LoginScreenApp(),
+        RegisterScreenApp.id: (context) => RegisterScreenApp(),
+        Meet12AInputWidget.id: (context) => Meet12AInputWidget(),
+        // MeetEmpatA.id : (context) => const MeetEmpatA(),
       },
     );
   }

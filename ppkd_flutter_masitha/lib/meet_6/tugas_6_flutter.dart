@@ -4,7 +4,7 @@ import 'package:ppkd_flutter_masitha/helper/preference.dart';
 
 class TugasEnamFlutter extends StatefulWidget {
   const TugasEnamFlutter({super.key});
-
+  static const String id = '/login';
   @override
   State<TugasEnamFlutter> createState() => _TugasEnamFlutterState();
 }
