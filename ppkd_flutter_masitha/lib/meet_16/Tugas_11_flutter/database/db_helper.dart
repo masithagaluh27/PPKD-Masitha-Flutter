@@ -2,6 +2,7 @@ import 'package:path/path.dart';
 import 'package:ppkd_flutter_masitha/meet_16/Tugas_11_flutter/model/game_model.dart';
 import 'package:sqflite/sqflite.dart';
 
+//tugas
 class DbHelper1 {
   static Future<Database> initDB() async {
     final dbpath = await getDatabasesPath();
@@ -39,3 +40,4 @@ class DbHelper1 {
     // }
   }
 }
+//ini comment

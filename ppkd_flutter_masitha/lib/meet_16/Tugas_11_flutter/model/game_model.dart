@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class GameModel {
   final int id;
   final String nama_pengguna;
@@ -44,3 +43,4 @@ class GameModel {
   factory GameModel.fromJson(String source) =>
       GameModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
+//ini hanya comment
