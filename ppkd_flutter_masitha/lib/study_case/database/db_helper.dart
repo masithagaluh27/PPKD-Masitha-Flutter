@@ -1,34 +1,41 @@
 import 'package:path/path.dart';
+import 'package:ppkd_flutter_masitha/study_case/model/siswa_model.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DbHelper {
-  static Future<Database> initDB() async {
+class DBHelper {
+  static Future<Database> db() async {
     final dbpath = await getDatabasesPath();
 
     return openDatabase(
       join(dbpath, 'siswa.db'),
-      onCreate: (db, Version) {
+      onUpgrade: (db, oldVersion, newVersion) {
         return db.execute(
-          'CREATE TABLE siswa(id INTEGER PRIMARY AUTOINCREMENT, name TEXT, umur INTEGER)',
+          'CREATE TABLE siswi(id INTEGER PRIMARY KEY AUTOINCREMENT, nama TEXT, umur INTEGER)',
         );
       },
-      version: 1,
+      onCreate: (db, version) {
+        return db.execute(
+          'CREATE TABLE siswa(id INTEGER PRIMARY KEY AUTOINCREMENT, nama TEXT, umur INTEGER)',
+        );
+      },
+      version: 3,
     );
   }
 
-  // Future<void> insertSiswa({Siswa, siswa}) async {
-  //   final db = await DbHelper.db();
-  //   await db.insert(
-  //     'siswa',
-  //     siswa.toMap(),
-  //     ConflictAlgorithm: ConflictAlgorithm.replace,
-  //   );
-  // }
+  static Future<void> insertSiswa(Siswa siswa) async {
+    final db = await DBHelper.db();
+    await db.insert(
+      'siswi',
+      siswa.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
 
-  // Future<Siswa?> getAllSiswa() async {
-  //   final db = await DbHelper.db();
-  //   final List<Map<String, dynamic>> maps = await db.query('siswa');
+  static Future<List<Siswa>> getAllSiswa() async {
+    final db = await DBHelper.db();
+    final List<Map<String, dynamic>> maps = await db.query('siswi');
 
-  //   return List.generate(growable: maps.length, (i) => Siswa.fromMap(maps[i]));
-  // }
+    return List.generate(maps.length, (i) => Siswa.fromMap(maps[i]));
+    // }
+  }
 }

@@ -138,42 +138,6 @@ class _LoginScreenAppState extends State<LoginScreenApp> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      // onPressed: () async {
-                      //   if (_formKey.currentState!.validate()) {
-                      //     final userData = await DbHelper.login(
-                      //       emailController.text.trim(),
-                      //       passwordController.text.trim(),
-                      //     );
-                      //     if (userData != null) {
-                      //       print('data ada ${userData.toJson()}');
-                      //       ScaffoldMessenger.of(context).showSnackBar(
-                      //         const SnackBar(
-                      //           content: Text("Login successful"),
-                      //           backgroundColor: Colors.green,
-                      //           duration: Duration(seconds: 2),
-                      //         ),
-                      //       );
-                      //       // PreferenceHandler.saveLogin(true);
-
-                      //       // // Tunda navigasi sebentar supaya Snackbar terlihat
-                      //       // await Future.delayed(const Duration(seconds: 2));
-
-                      //       // Navigator.pushNamedAndRemoveUntil(
-                      //       //   context,
-                      //       //   '/home',
-                      //       //   (route) => false,
-                      //       // );
-                      //     } else {
-                      //       ScaffoldMessenger.of(context).showSnackBar(
-                      //         const SnackBar(
-                      //           content: Text("Email atau password salah"),
-                      //           backgroundColor: Colors.red,
-                      //           duration: Duration(seconds: 2),
-                      //         ),
-                      //       );
-                      //     }
-                      //   }
-                      // },
                       onPressed: () async {
                         try {
                           if (_formKey.currentState!.validate()) {
