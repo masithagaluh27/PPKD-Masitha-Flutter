@@ -36,7 +36,6 @@ class _GameFavoriteState extends State<GameFavorite> {
   Future<void> simpanData() async {
     if (_formKey.currentState!.validate()) {
       final newGame = GameModel(
-        id: 0,
         nama_pengguna: namaController.text,
         game: gameController.text,
         ulasan: ulasanController.text,
@@ -45,11 +44,24 @@ class _GameFavoriteState extends State<GameFavorite> {
       );
 
       await DbHelper1.insertGame(newGame);
+
+      // Tampilkan snackbar setelah data tersimpan
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Data berhasil disimpan!'),
+          duration: const Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.green[600],
+        ),
+      );
+
+      // Bersihkan form setelah simpan
       namaController.clear();
       gameController.clear();
       ulasanController.clear();
       genreController.clear();
       ratingController.clear();
+
       muatData();
     }
   }
@@ -97,14 +109,28 @@ class _GameFavoriteState extends State<GameFavorite> {
                   itemCount: pendataanGameFav.length,
                   itemBuilder: (context, index) {
                     final game = pendataanGameFav[index];
-                    return ListTile(
-                      leading: CircleAvatar(child: Text('${game.id}')),
-                      title: Text(game.game),
-                      subtitle: Text(
-                        'User: ${game.nama_pengguna}\n' // biar kebawah
-                        'Genre: ${game.genre}\n'
-                        'Rating: ${game.rating}\n'
-                        'Ulasan: ${game.ulasan}',
+                    return Card(
+                      elevation: 4,
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              game.game,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text('User: ${game.nama_pengguna}'),
+                            Text('Genre: ${game.genre}'),
+                            Text('Rating: ${game.rating}'),
+                            Text('Ulasan: ${game.ulasan}'),
+                          ],
+                        ),
                       ),
                     );
                   },

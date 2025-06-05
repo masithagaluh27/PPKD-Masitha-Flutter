@@ -25,6 +25,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ini comment aja
+
 // void main() {
 //   runApp(const MyApp());
 // }

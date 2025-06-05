@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 class GameModel {
-  final int id;
+  final int? id;
   final String nama_pengguna;
   final String game;
   final String ulasan;
   final String genre;
   final String rating;
   GameModel({
-    required this.id,
+    this.id,
     required this.nama_pengguna,
     required this.game,
     required this.ulasan,
@@ -43,4 +43,4 @@ class GameModel {
   factory GameModel.fromJson(String source) =>
       GameModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
-//ini hanya comment
+//ini hanya
