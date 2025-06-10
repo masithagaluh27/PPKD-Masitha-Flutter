@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ppkd_flutter_masitha/tugas_13_flutter/5edit_item_screen.dart';
 import 'package:ppkd_flutter_masitha/tugas_13_flutter/database/db_helper.dart';
 
-import '5edit_item_screen.dart';
+// import '../study_case/5edit_item_screen.dart';
 
 class ShoppingListScreen extends StatefulWidget {
   const ShoppingListScreen({super.key});
@@ -12,7 +13,6 @@ class ShoppingListScreen extends StatefulWidget {
 }
 
 class _ShoppingListScreenState extends State<ShoppingListScreen> {
-  // Karena tidak pakai model, pakai List<Map<String, dynamic>>
   List<Map<String, dynamic>> items = [];
 
   @override
@@ -62,7 +62,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
             title: Text(item['name']),
             subtitle: Text('Qty: ${item['quantity']}'),
             trailing: Row(
-              mainAxisSize: MainAxisSize.min, // biar Row gak lebarkan trailing
+              mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
                   icon: const Icon(Icons.edit),
