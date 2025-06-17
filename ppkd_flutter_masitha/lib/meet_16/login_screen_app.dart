@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppkd_flutter_masitha/meet_12/tugas_7-8_flutter.dart';
 import 'package:ppkd_flutter_masitha/meet_16/database/db_helper.dart';
 import 'package:ppkd_flutter_masitha/meet_16/register_screen_app.dart';
 // import 'package:ppkd_flutter_masitha/your_register_screen.dart'; // Pastikan ini di-import jika ada halaman register
@@ -139,6 +140,7 @@ class _LoginScreenAppState extends State<LoginScreenApp> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () async {
+                        Navigator.pushNamed(context, Tugas8Flutter.id);
                         try {
                           if (_formKey.currentState!.validate()) {
                             final userData = await DbHelper.login(

@@ -4,10 +4,11 @@ import 'package:ppkd_flutter_masitha/meet_12/tugas_7_flutter/2_switchform.dart';
 import 'package:ppkd_flutter_masitha/meet_12/tugas_7_flutter/3_dropdown_form.dart';
 import 'package:ppkd_flutter_masitha/meet_12/tugas_7_flutter/4_date_picker.dart';
 import 'package:ppkd_flutter_masitha/meet_12/tugas_7_flutter/5_time_picker.dart';
+import 'package:ppkd_flutter_masitha/meet_22/view/user_list_screen.dart';
 
 class Tugas8Flutter extends StatefulWidget {
   const Tugas8Flutter({super.key});
-  static const String id = '/halaman 8';
+  static const String id = '/main_page';
   @override
   State<Tugas8Flutter> createState() => _Tugas8FlutterState();
 }
@@ -22,6 +23,7 @@ class _Tugas8FlutterState extends State<Tugas8Flutter> {
     DropdownForm(),
     PilihTanggalLahir(),
     pilihWaktuPengingat(),
+    UserListScreen(),
   ];
 
   final aboutScreen = const Padding(
@@ -123,6 +125,14 @@ class _Tugas8FlutterState extends State<Tugas8Flutter> {
                       title: const Text('Atur Pengingat'),
                       onTap: () {
                         setState(() => _selectedDrawerIndex = 4);
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.shop),
+                      title: const Text('API User'),
+                      onTap: () {
+                        setState(() => _selectedDrawerIndex = 5);
                         Navigator.pop(context);
                       },
                     ),

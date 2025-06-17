@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:ppkd_flutter_masitha/constant/app_style.dart';
 import 'package:ppkd_flutter_masitha/helper/preference.dart';
 // import 'package:ppkd_flutter_masitha/meet_12/tugas_7-8_flutter.dart';
-import 'package:ppkd_flutter_masitha/meet_16/login_screen_app.dart';
+// import 'package:ppkd_flutter_masitha/meet_16/login_screen_app.dart';
+import 'package:ppkd_flutter_masitha/tugas_empat_belas/view/product_list_screen.dart.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+  static const String id = '/splash_screen';
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -25,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
       // } else {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        LoginScreenApp.id,
+        ProductListScreen.id,
         (route) => false,
       );
     });
