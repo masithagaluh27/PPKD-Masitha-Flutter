@@ -19,6 +19,7 @@ class _GameFavoriteState extends State<GameFavorite> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   List<GameModel> pendataanGameFav = [];
+  int? editingId;
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _GameFavoriteState extends State<GameFavorite> {
   Future<void> simpanData() async {
     if (_formKey.currentState!.validate()) {
       final newGame = GameModel(
+        id: editingId,
         nama_pengguna: namaController.text,
         game: gameController.text,
         ulasan: ulasanController.text,
@@ -46,24 +48,65 @@ class _GameFavoriteState extends State<GameFavorite> {
       await DbHelper1.insertGame(newGame);
 
       // Tampilkan snackbar setelah data tersimpan
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Data berhasil disimpan!'),
-          duration: const Duration(seconds: 3),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.green[600],
-        ),
-      );
+      if (editingId == null) {
+        await DbHelper1.insertGame(newGame);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Data berhasil disimpan!'),
+            duration: const Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.green[600],
+          ),
+        );
+      } else {
+        await DbHelper1.updateGame(newGame);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Data berhasil diupdate!'),
+            duration: const Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.blue[600],
+          ),
+        );
+      }
 
-      // Bersihkan form setelah simpan
-      namaController.clear();
-      gameController.clear();
-      ulasanController.clear();
-      genreController.clear();
-      ratingController.clear();
+      clearform();
 
       muatData();
     }
+  }
+
+  void clearform() {
+    namaController.clear();
+    gameController.clear();
+    ulasanController.clear();
+    genreController.clear();
+    ratingController.clear();
+    editingId = null;
+  }
+
+  Future<void> hapusData(int id) async {
+    await DbHelper1.deleteGame(id);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Data berhasil dihapus!'),
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.red[600],
+      ),
+    );
+    muatData();
+  }
+
+  void mulaiEdit(GameModel game) {
+    setState(() {
+      editingId = game.id;
+      namaController.text = game.nama_pengguna;
+      gameController.text = game.game;
+      ulasanController.text = game.ulasan;
+      genreController.text = game.genre;
+      ratingController.text = game.rating;
+    });
   }
 
   @override
@@ -99,10 +142,31 @@ class _GameFavoriteState extends State<GameFavorite> {
               _buildTextField(genreController, 'Genre'),
               _buildTextField(ratingController, 'Rating', isNumber: true),
               const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: simpanData,
-                child: const Text('Simpan'),
+
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: simpanData,
+                      child: Text(editingId == null ? 'Simpan' : 'Update'),
+                    ),
+                  ),
+                  if (editingId != null) ...[
+                    const SizedBox(width: 12),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                      ),
+                      onPressed: () {
+                        clearform();
+                        setState(() {}); // refresh UI supaya tombol berubah
+                      },
+                      child: const Text('Batal'),
+                    ),
+                  ],
+                ],
               ),
+
               const Divider(height: 32),
               Expanded(
                 child: ListView.builder(
@@ -129,6 +193,29 @@ class _GameFavoriteState extends State<GameFavorite> {
                             Text('Genre: ${game.genre}'),
                             Text('Rating: ${game.rating}'),
                             Text('Ulasan: ${game.ulasan}'),
+                            const SizedBox(height: 12),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    mulaiEdit(game);
+                                  },
+                                  child: const Text('Edit'),
+                                ),
+                                const SizedBox(width: 8),
+                                TextButton(
+                                  onPressed: () {
+                                    hapusData(game.id!);
+                                  },
+                                  child: const Text(
+                                    'Delete',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -172,3 +259,5 @@ Widget _buildTextField(
     ),
   );
 }
+
+//tugas 11 dan 12 flutter

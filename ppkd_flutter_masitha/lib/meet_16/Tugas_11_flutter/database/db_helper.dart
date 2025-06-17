@@ -39,5 +39,24 @@ class DbHelper1 {
     return List.generate(maps.length, (i) => GameModel.fromMap(maps[i]));
     // }
   }
+
+  // Update game
+  static Future<void> updateGame(GameModel game) async {
+    final db = await DbHelper1.initDB();
+    await db.update(
+      'games',
+      game.toMap(),
+      where: 'id = ?',
+      whereArgs: [game.id],
+    );
+    print('Game updated successfully');
+  }
+
+  // Delete game
+  static Future<void> deleteGame(int id) async {
+    final db = await DbHelper1.initDB();
+    await db.delete('games', where: 'id = ?', whereArgs: [id]);
+    print('Game deleted successfully');
+  }
 }
-//ini comment ya
+//tugas 11 dan 12 flutter
