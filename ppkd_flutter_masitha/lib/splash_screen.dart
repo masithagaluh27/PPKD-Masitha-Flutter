@@ -47,12 +47,24 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(),
+            const Spacer(),
 
-            Image.asset('assets/image/hancaplas.jpeg'),
-            SizedBox(height: 20),
-            Text("hancaplas App", style: AppStyle.fontBold()),
-            Spacer(),
+            // 🔽 Tambahkan pembatas ukuran
+            SizedBox(
+              width: 200,
+              height: 200,
+              
+              child: Image.asset(
+                'assets/image/logo_copi.jpeg',
+                fit: BoxFit.contain, // agar proporsional
+              ),
+            ),
+
+            const SizedBox(height: 20),
+            Text("copi App", style: AppStyle.fontBold()),
+
+            const Spacer(),
+
             SafeArea(
               child: Text("v 1.0.0", style: AppStyle.fontRegular(fontSize: 10)),
             ),

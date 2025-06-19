@@ -66,6 +66,7 @@ flutter:
     - assets/image/logo facebook.PNG
     - assets/image/iconGoogle.PNG
     - assets/image/online.png
+    - assets/image/logo_copi.jpeg
     - assets/image/
     # - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -12,16 +12,13 @@ class ProductListScreen extends StatefulWidget {
 
 class _ProductListScreenState extends State<ProductListScreen> {
   String _searchText = '';
-  Set<String> _selectedCategories =
-      {}; // Menyimpan banyak kategori yang dipilih
 
-  // Semua kategori dari API
-  final List<String> categories = [
-    'electronics',
-    'jewelery',
-    "men's clothing",
-    "women's clothing",
-  ];
+  // Fungsi untuk refresh data
+  void _refresh() {
+    setState(() {
+      // FutureBuilder akan otomatis fetch ulang
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,108 +27,84 @@ class _ProductListScreenState extends State<ProductListScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFB39DDB),
         elevation: 0,
+        toolbarHeight: 100,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(24)),
         ),
-        title: const Text('Fake Store Products'),
+        title: const Text(
+          '🛍️  Fake Store',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            letterSpacing: 1.2,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            tooltip: 'Refresh Produk',
+            onPressed: _refresh,
+          ),
+        ],
       ),
-      body: FutureBuilder<List<ShopUserModel>>(
-        future: getProduct(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: Column(
+        children: [
+          const SizedBox(height: 12),
 
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('Tidak ada produk'));
-          }
-
-          final allProducts = snapshot.data!;
-
-          // Filter produk berdasarkan pencarian & kategori (boleh lebih dari satu)
-          final filteredProducts =
-              allProducts.where((product) {
-                final matchSearch = product.title.toLowerCase().contains(
-                  _searchText.toLowerCase(),
-                );
-
-                final productCategory =
-                    categoryValues.reverse[product.category]?.toLowerCase() ??
-                    '';
-
-                // Jika tidak memilih kategori → tampilkan semua
-                if (_selectedCategories.isEmpty) return matchSearch;
-
-                final matchCategory = _selectedCategories.contains(
-                  productCategory,
-                );
-
-                return matchSearch && matchCategory;
-              }).toList();
-
-          return Column(
-            children: [
-              const SizedBox(height: 12),
-              // Search Bar
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Cari produk...',
-                    filled: true,
-                    fillColor: Colors.white,
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      _searchText = value;
-                    });
-                  },
+          // Search Bar
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Cari produk...',
+                filled: true,
+                fillColor: Colors.white,
+                prefixIcon: const Icon(Icons.search),
+                contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  borderSide: BorderSide.none,
                 ),
               ),
-              const SizedBox(height: 10),
-              // Filter kategori horizontal (multi select)
-              SizedBox(
-                height: 40,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    final cat = categories[index];
-                    final selected = _selectedCategories.contains(cat);
+              onChanged: (value) {
+                setState(() {
+                  _searchText = value;
+                });
+              },
+            ),
+          ),
 
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: ChoiceChip(
-                        label: Text(cat),
-                        selected: selected,
-                        selectedColor: const Color(0xFFB39DDB),
-                        onSelected: (bool value) {
-                          setState(() {
-                            if (value) {
-                              _selectedCategories.add(cat);
-                            } else {
-                              _selectedCategories.remove(cat);
-                            }
-                          });
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 10),
-              // List Produk
-              Expanded(
-                child: ListView.builder(
+          const SizedBox(height: 10),
+
+          // List Produk
+          Expanded(
+            child: FutureBuilder<List<ShopUserModel>>(
+              future: getProduct(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                }
+
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(child: Text('Tidak ada produk'));
+                }
+
+                final allProducts = snapshot.data!;
+
+                // Filter pencarian
+                final filteredProducts =
+                    allProducts.where((product) {
+                      return product.title.toLowerCase().contains(
+                        _searchText.toLowerCase(),
+                      );
+                    }).toList();
+
+                return ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   itemCount: filteredProducts.length,
                   itemBuilder: (context, index) {
@@ -155,12 +128,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
                             // Gambar produk
                             ClipRRect(
                               borderRadius: const BorderRadius.horizontal(
-                                left: Radius.circular(12),
+                                left: Radius.circular(5),
                               ),
                               child: Image.network(
                                 product.image,
-                                width: 100,
-                                height: 100,
+                                width: 85,
+                                height: 85,
                                 fit: BoxFit.cover,
                                 errorBuilder:
                                     (_, __, ___) =>
@@ -199,11 +172,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       ),
                     );
                   },
-                ),
-              ),
-            ],
-          );
-        },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

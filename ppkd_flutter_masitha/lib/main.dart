@@ -25,9 +25,6 @@ class MyApp extends StatelessWidget {
         '/splash_screen': (context) => const SplashScreen(),
         '/product_list': (context) => const ProductListScreen(),
         '/detail': (context) => const ProductDetailScreen(),
-        // '/login_screen_app': (context) => const LoginScreenApp(),
-        // '/main_page': (context) => const Tugas8Flutter(),
-        // RegisterScreenApp.id: (context) => RegisterScreenApp(),
       },
     );
   }
