@@ -15,9 +15,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   // Fungsi untuk refresh data
   void _refresh() {
-    setState(() {
-      // FutureBuilder akan otomatis fetch ulang
-    });
+    setState(() {});
   }
 
   @override
@@ -126,20 +124,31 @@ class _ProductListScreenState extends State<ProductListScreen> {
                         child: Row(
                           children: [
                             // Gambar produk
-                            ClipRRect(
-                              borderRadius: const BorderRadius.horizontal(
-                                left: Radius.circular(5),
-                              ),
-                              child: Image.network(
-                                product.image,
-                                width: 85,
-                                height: 85,
-                                fit: BoxFit.cover,
-                                errorBuilder:
-                                    (_, __, ___) =>
-                                        const Icon(Icons.broken_image),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    product.image,
+                                    fit: BoxFit.contain,
+                                    errorBuilder:
+                                        (_, __, ___) =>
+                                            const Icon(Icons.broken_image),
+                                  ),
+                                ),
                               ),
                             ),
+
                             const SizedBox(width: 10),
                             // Info produk
                             Expanded(
