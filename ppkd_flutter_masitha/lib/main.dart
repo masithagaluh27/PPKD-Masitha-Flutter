@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 // import 'package:ppkd_flutter_masitha/meet_16/login_screen_app.dart';
 // import 'package:ppkd_flutter_masitha/meet_16/register_screen_app.dart';
 import 'package:ppkd_flutter_masitha/splash_screen.dart';
-import 'package:ppkd_flutter_masitha/tugas_empat_belas/view/product_detail_screen.dart';
-import 'package:ppkd_flutter_masitha/tugas_empat_belas/view/product_list_screen.dart.dart';
+import 'package:ppkd_flutter_masitha/tugas_lima_belas/login_screen.dart';
+import 'package:ppkd_flutter_masitha/tugas_lima_belas/option_screen.dart';
+import 'package:ppkd_flutter_masitha/tugas_lima_belas/register_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,12 +24,34 @@ class MyApp extends StatelessWidget {
       initialRoute: '/splash_screen',
       routes: {
         '/splash_screen': (context) => const SplashScreen(),
-        '/product_list': (context) => const ProductListScreen(),
-        '/detail': (context) => const ProductDetailScreen(),
+        '/option_screen': (context) => const WelcomeScreen(),
+        '/Login': (context) => const LoginScreen14(),
+        '/register': (context) => const RegisterScreen14(),
       },
     );
   }
 }
+
+// void main() {
+//   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       initialRoute: '/splash_screen',
+//       routes: {
+//         '/splash_screen': (context) => const SplashScreen(),
+//         '/product_list': (context) => const ProductListScreen(),
+//         '/detail': (context) => const ProductDetailScreen(),
+//       },
+//     );
+//   }
+// }
 
 // main.dart meet 16
 

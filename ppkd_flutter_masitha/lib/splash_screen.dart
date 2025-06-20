@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ppkd_flutter_masitha/constant/app_style.dart';
 import 'package:ppkd_flutter_masitha/helper/preference.dart';
-// import 'package:ppkd_flutter_masitha/meet_12/tugas_7-8_flutter.dart';
-// import 'package:ppkd_flutter_masitha/meet_16/login_screen_app.dart';
-import 'package:ppkd_flutter_masitha/tugas_empat_belas/view/product_list_screen.dart.dart';
+import 'package:ppkd_flutter_masitha/tugas_lima_belas/option_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       // } else {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        ProductListScreen.id,
+        WelcomeScreen.id,
         (route) => false,
       );
     });
@@ -53,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(
               width: 200,
               height: 200,
-              
+
               child: Image.asset(
                 'assets/image/logo_copi.jpeg',
                 fit: BoxFit.contain, // agar proporsional
