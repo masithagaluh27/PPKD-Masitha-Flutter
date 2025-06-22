@@ -57,21 +57,35 @@ class UserService {
   }
 
   //get profile
-  //  Future<User?> getProfile() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final token = prefs.getString('token');
 
-  //   final response = await http.get(
-  //     Uri.parse(Endpoint.profile),
-  //     headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
-  //   );
+  Future<Map<String, dynamic>> getProfile(String token) async {
+    final response = await http.get(
+      Uri.parse(Endpoint.profile), // Ganti dengan endpoint GET yang benar
+      headers: {"Accept": "application/json", "Authorization": "Bearer $token"},
+    );
 
-  //   if (response.statusCode == 200) {
-  //     final jsonBody = json.decode(response.body);
-  //     return User.fromJson(jsonBody['data']);
-  //   } else {
-  //     print("Gagal get profile: ${response.body}");
-  //     return null;
-  //   }
-  // }
+    print(response.body);
+    if (response.statusCode == 200) {
+      return registerResponseFromJson(response.body).toJson();
+    } else {
+      throw Exception("Failed to load profile: ${response.statusCode}");
+    }
+  }
+
+  //upate profile
+  Future<bool> updateProfile({
+    required String token,
+    required String userId,
+    required String name,
+    required String email,
+  }) async {
+    final response = await http.patch(
+      Uri.parse("${Endpoint.profileUpdate}/$userId"),
+      headers: {"Accept": "application/json", "Authorization": "Bearer $token"},
+      body: {"name": name, "email": email},
+    );
+
+    print(response.body);
+    return response.statusCode == 200;
+  }
 }

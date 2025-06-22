@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ppkd_flutter_masitha/constant/app_style.dart';
-import 'package:ppkd_flutter_masitha/helper/preference.dart';
-import 'package:ppkd_flutter_masitha/tugas_lima_belas/option_screen.dart';
+import 'package:ppkd_flutter_masitha/tugas_lima_belas/login_screen.dart';
+// import 'tugas_lima_belas/login_screen.dart';
+import 'tugas_lima_belas/register_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,30 +13,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void changePage() {
-    Future.delayed(Duration(seconds: 3), () async {
-      bool isLogin = await PreferenceHandler.getLogin();
-      print("isLogin: $isLogin");
-      //       if (isLogin) {
-      //         return Navigator.pushNamedAndRemoveUntil(
-      //           context,
-      //           Tugas8Flutter.id,
-      //           (route) => false,
-      //         );
-      // } else {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        WelcomeScreen.id,
+        LoginScreen15.id,
         (route) => false,
       );
     });
-  }
-  // }
-
-  @override
-  void initState() {
-    changePage();
-    super.initState();
   }
 
   @override
@@ -47,14 +34,12 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             const Spacer(),
 
-            // 🔽 Tambahkan pembatas ukuran
             SizedBox(
               width: 200,
               height: 200,
-
               child: Image.asset(
                 'assets/image/logo_copi.jpeg',
-                fit: BoxFit.contain, // agar proporsional
+                fit: BoxFit.contain,
               ),
             ),
 

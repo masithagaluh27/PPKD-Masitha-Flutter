@@ -1,163 +1,135 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../../tugas_lima_belas/endpoint.dart';
+import 'profile_detail_screen.dart';
 
-class ShoppingListScreen extends StatefulWidget {
-  final int userId;
-  const ShoppingListScreen({super.key, required this.userId});
+class ProfileScreen15 extends StatefulWidget {
+  const ProfileScreen15({super.key});
+  static const String id = '/profile';
 
   @override
-  State<ShoppingListScreen> createState() => _ShoppingListScreenState();
+  State<ProfileScreen15> createState() => _ProfileScreen15State();
 }
 
-class _ShoppingListScreenState extends State<ShoppingListScreen> {
-  List<dynamic> items = [];
-  List<dynamic> filteredItems = [];
-  String searchQuery = '';
-  int selectedIndex = 0;
+class _ProfileScreen15State extends State<ProfileScreen15> {
+  Map<String, dynamic>? userData;
+
+  Future<void> getProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await http.get(
+      Uri.parse(Endpoint.profile),
+      headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      final jsonBody = json.decode(response.body);
+      setState(() {
+        userData = jsonBody['data']['user'];
+      });
+    } else {
+      print('Gagal ambil profile: ${response.statusCode}');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    fetchItems();
-  }
-
-  Future<void> fetchItems() async {
-    final response = await http.get(Uri.parse("https://absen.quidi.id"));
-
-    if (response.statusCode == 200) {
-      final List<dynamic> data = json.decode(response.body);
-      setState(() {
-        items = data;
-        filteredItems = applySearch(data, searchQuery);
-      });
-    } else {
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Gagal mengambil data produk'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
-  List<dynamic> applySearch(List<dynamic> data, String query) {
-    if (query.isEmpty) return data;
-
-    return data
-        .where(
-          (item) => item['title'].toString().toLowerCase().contains(
-            query.toLowerCase(),
-          ),
-        )
-        .toList();
-  }
-
-  Widget buildShoppingListView() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: 80),
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(24),
-            decoration: const BoxDecoration(
-              color: Color(0xffC4D9FF),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(32),
-                bottomRight: Radius.circular(32),
-              ),
-            ),
-            child: const Text(
-              'Shopping\nlist.',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Text(
-              'Total produk: ${filteredItems.length}',
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: TextField(
-              decoration: const InputDecoration(
-                hintText: 'Cari produk...',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  searchQuery = value;
-                  filteredItems = applySearch(items, searchQuery);
-                });
-              },
-            ),
-          ),
-          const SizedBox(height: 10),
-          if (filteredItems.isEmpty)
-            const Center(
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Text('Tidak ada data produk'),
-              ),
-            )
-          else
-            for (var item in filteredItems)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 6,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0xFFD6CDEA),
-                        blurRadius: 4,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: ListTile(
-                    leading: Image.network(
-                      item['image'],
-                      width: 50,
-                      height: 50,
-                    ),
-                    title: Text(
-                      item['title'],
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    subtitle: Text("Rp ${item['price']}"),
-                  ),
-                ),
-              ),
-        ],
-      ),
-    );
+    getProfile();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFE8F9FF),
-      body: buildShoppingListView(),
+      backgroundColor: Colors.teal[800],
+      body:
+          userData == null
+              ? const Center(child: CircularProgressIndicator())
+              : SafeArea(
+                child: Center(
+                  child: Container(
+                    margin: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundImage: const NetworkImage(
+                            'https://via.placeholder.com/150', // bisa diganti URL foto dari backend
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          userData!['name'],
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          userData!['email'],
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                        const Divider(height: 30),
+                        buildMenuItem(context, Icons.person, 'My Profile', () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) =>
+                                      ProfileDetailScreen(userData: userData!),
+                            ),
+                          );
+                        }),
+                        buildMenuItem(
+                          context,
+                          Icons.settings,
+                          'Settings',
+                          () {},
+                        ),
+                        buildMenuItem(
+                          context,
+                          Icons.notifications,
+                          'Notification',
+                          () {},
+                        ),
+                        buildMenuItem(
+                          context,
+                          Icons.logout,
+                          'Log Out',
+                          () async {
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            await prefs.remove('token');
+                            Navigator.pushReplacementNamed(context, '/login');
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+    );
+  }
+
+  Widget buildMenuItem(
+    BuildContext context,
+    IconData icon,
+    String title,
+    VoidCallback onTap,
+  ) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+      onTap: onTap,
     );
   }
 }
