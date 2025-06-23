@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ppkd_flutter_masitha/splash_screen.dart';
 import 'package:ppkd_flutter_masitha/tugas_lima_belas/login_screen.dart';
 import 'package:ppkd_flutter_masitha/tugas_lima_belas/register_screen.dart';
-import 'tugas_lima_belas/main_screen.dart';
+import 'tugas_lima_belas/profile_screen.dart';
 
 void main() {
   runApp(const MyApp());

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ppkd_flutter_masitha/constant/app_style.dart';
 import 'package:ppkd_flutter_masitha/tugas_lima_belas/login_screen.dart';
 // import 'tugas_lima_belas/login_screen.dart';
-import 'tugas_lima_belas/register_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

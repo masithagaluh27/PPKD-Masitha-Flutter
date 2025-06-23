@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+import 'package:ppkd_flutter_masitha/helper/preference.dart';
+import 'package:ppkd_flutter_masitha/tugas_lima_belas/Models/profile_response.dart';
 import 'package:ppkd_flutter_masitha/tugas_lima_belas/Models/register_error_response.dart';
 import 'package:ppkd_flutter_masitha/tugas_lima_belas/Models/register_response.dart.dart';
 import 'package:ppkd_flutter_masitha/tugas_lima_belas/endpoint.dart';
@@ -58,34 +62,37 @@ class UserService {
 
   //get profile
 
-  Future<Map<String, dynamic>> getProfile(String token) async {
+  Future<Map<String, dynamic>> getProfile() async {
+    String? token = await PreferenceHandler.getToken();
     final response = await http.get(
-      Uri.parse(Endpoint.profile), // Ganti dengan endpoint GET yang benar
+      Uri.parse(Endpoint.profile),
       headers: {"Accept": "application/json", "Authorization": "Bearer $token"},
     );
 
     print(response.body);
     if (response.statusCode == 200) {
-      return registerResponseFromJson(response.body).toJson();
+      return profileUserModelFromJson(response.body).toJson();
     } else {
       throw Exception("Failed to load profile: ${response.statusCode}");
     }
   }
 
   //upate profile
-  Future<bool> updateProfile({
-    required String token,
-    required String userId,
-    required String name,
-    required String email,
-  }) async {
-    final response = await http.patch(
-      Uri.parse("${Endpoint.profileUpdate}/$userId"),
-      headers: {"Accept": "application/json", "Authorization": "Bearer $token"},
-      body: {"name": name, "email": email},
+  Future<bool> updateProfile(String name) async {
+    final token = await PreferenceHandler.getToken();
+    final response = await http.put(
+      Uri.parse(Endpoint.profileUpdate),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({'name': name}),
     );
 
-    print(response.body);
-    return response.statusCode == 200;
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception(jsonDecode(response.body)['message']);
+    }
   }
 }

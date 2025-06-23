@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ppkd_flutter_masitha/tugas_lima_belas/api/user_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen15 extends StatefulWidget {
   const LoginScreen15({super.key});
@@ -16,6 +16,7 @@ class _LoginScreen15State extends State<LoginScreen15> {
   final _email = TextEditingController();
   final _password = TextEditingController();
   bool _isLoading = false;
+  bool _obscurePassword = true;
 
   void login() async {
     if (_formKey.currentState!.validate()) {
@@ -27,27 +28,56 @@ class _LoginScreen15State extends State<LoginScreen15> {
           password: _password.text,
         );
 
+        print("Login result: $result");
+
         if (result['data'] != null) {
           final token = result['data']['token'];
+          print("✅ Token berhasil login: $token");
+
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('token', token);
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Login successful!"),
+              backgroundColor: Colors.green,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          );
 
           Navigator.pushReplacementNamed(context, '/profile');
         } else if (result['errors'] != null) {
           final errors = result['errors'];
-          if (errors['email'] != null) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(errors['email'][0])));
-          } else if (errors['password'] != null) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(errors['password'][0])));
-          }
+          String errorMessage =
+              errors['email']?[0] ?? errors['password']?[0] ?? "Login failed";
+
+          print("❌ Login error: $errorMessage");
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMessage),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          );
         }
       } catch (e) {
+        print("❌ Exception saat login: $e");
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Login failed: ${e.toString()}")),
+          SnackBar(
+            content: Text("Login failed: ${e.toString()}"),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
         );
       }
 
@@ -59,11 +89,13 @@ class _LoginScreen15State extends State<LoginScreen15> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        fit: StackFit.expand,
         children: [
-          // Background Image
-          Image.asset("assets/image/blur.jpeg", fit: BoxFit.cover),
-          // Login Card
+          Image.asset(
+            "assets/image/blur.jpeg",
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
+          ),
           Center(
             child: SingleChildScrollView(
               child: Container(
@@ -85,7 +117,6 @@ class _LoginScreen15State extends State<LoginScreen15> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Title
                       Text(
                         "HEY!",
                         style: GoogleFonts.poppins(
@@ -101,21 +132,19 @@ class _LoginScreen15State extends State<LoginScreen15> {
                         ),
                       ),
                       const SizedBox(height: 30),
-
-                      // Email Field
                       TextFormField(
                         controller: _email,
                         decoration: InputDecoration(
                           labelText: "Email",
                           filled: true,
                           fillColor: Color(0xFFF2F4F7),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 16,
-                            horizontal: 20,
-                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide.none,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 16,
+                            horizontal: 20,
                           ),
                         ),
                         validator:
@@ -124,23 +153,32 @@ class _LoginScreen15State extends State<LoginScreen15> {
                                     ? "Please enter your email"
                                     : null,
                       ),
-
                       const SizedBox(height: 16),
-
-                      // Password Field
                       TextFormField(
                         controller: _password,
+                        obscureText: _obscurePassword,
                         decoration: InputDecoration(
                           labelText: "Password",
                           filled: true,
                           fillColor: Color(0xFFF2F4F7),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 16,
-                            horizontal: 20,
-                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide.none,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 16,
+                            horizontal: 20,
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed:
+                                () => setState(() {
+                                  _obscurePassword = !_obscurePassword;
+                                }),
                           ),
                         ),
                         validator:
@@ -149,44 +187,38 @@ class _LoginScreen15State extends State<LoginScreen15> {
                                     ? "Please enter your password"
                                     : null,
                       ),
-
                       const SizedBox(height: 24),
-
-                      // Login Button
                       Center(
                         child: SizedBox(
                           width: 205,
                           height: 48,
                           child: ElevatedButton(
+                            onPressed: _isLoading ? null : login,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurple[200],
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(24),
                               ),
                             ),
-                            onPressed: _isLoading ? null : login,
                             child:
                                 _isLoading
-                                    ? const CircularProgressIndicator()
-                                    : const Text("Login"),
+                                    ? CircularProgressIndicator()
+                                    : Text("Login"),
                           ),
                         ),
                       ),
                       const SizedBox(height: 20),
-
-                      // Bottom text row
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text("Don't have an account? "),
+                          Text("Don't have an account? "),
                           TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacementNamed(
-                                context,
-                                '/register',
-                              );
-                            },
-                            child: const Text("Create New"),
+                            onPressed:
+                                () => Navigator.pushReplacementNamed(
+                                  context,
+                                  '/register',
+                                ),
+                            child: Text("Create New"),
                           ),
                         ],
                       ),

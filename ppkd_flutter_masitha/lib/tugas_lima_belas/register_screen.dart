@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ppkd_flutter_masitha/tugas_lima_belas/api/user_api.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ppkd_flutter_masitha/tugas_lima_belas/api/user_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen15 extends StatefulWidget {
   const RegisterScreen15({super.key});
@@ -16,49 +16,73 @@ class _RegisterScreen15State extends State<RegisterScreen15> {
   final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
-  final _confirmPassword = TextEditingController();
+  bool _obscurePassword = true;
   bool _isLoading = false;
 
   void register() async {
     if (_formKey.currentState!.validate()) {
-      if (_password.text != _confirmPassword.text) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text("Passwords do not match")));
-        return;
-      }
-
       setState(() => _isLoading = true);
 
-      final result = await UserService().registerUser(
-        name: _name.text,
-        email: _email.text,
-        password: _password.text,
-      );
+      try {
+        final result = await UserService().registerUser(
+          name: _name.text,
+          email: _email.text,
+          password: _password.text,
+        );
 
-      if (result['errors'] != null) {
-        final errors = result['errors'];
-        if (errors['email'] != null) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(errors['email'][0])));
-        } else if (errors['password'] != null) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(errors['password'][0])));
-        } else if (errors['name'] != null) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(errors['name'][0])));
+        print("Register result: $result");
+
+        if (result['data'] != null) {
+          final token = result['data']['token'];
+          print("✅ Token berhasil register: $token");
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('token', token);
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Registration successful!"),
+              backgroundColor: Colors.green,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          );
+
+          Navigator.pushReplacementNamed(context, '/Login');
+        } else if (result['errors'] != null) {
+          final errors = result['errors'];
+          String errorMessage =
+              errors['email']?[0] ??
+              errors['password']?[0] ??
+              "Registration failed";
+
+          print("Registration error: $errorMessage");
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMessage),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          );
         }
-      }
-
-      if (result['data'] != null) {
-        final token = result['data']['token'];
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('token', token);
-
-        Navigator.pushReplacementNamed(context, '/profile');
+      } catch (e) {
+        print(" Exception saat register: $e");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Register failed: ${e.toString()}"),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        );
       }
 
       setState(() => _isLoading = false);
@@ -69,169 +93,158 @@ class _RegisterScreen15State extends State<RegisterScreen15> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        fit: StackFit.expand,
         children: [
-          // Background image if needed (optional)
-          Image.asset("assets/image/blur.jpeg", fit: BoxFit.cover),
+          Image.asset(
+            "assets/image/blur.jpeg",
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
+          ),
           Center(
             child: SingleChildScrollView(
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 24),
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: const Color(0xffE9EEF2).withOpacity(0.9),
+                  color: Color(0xffE9EEF2).withOpacity(0.9),
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black26,
                       blurRadius: 8,
-                      offset: const Offset(0, 4),
+                      offset: Offset(0, 4),
                     ),
                   ],
                 ),
                 child: Form(
                   key: _formKey,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Logo
-                      Image.asset('assets/image/amico.PNG', height: 80),
-                      const SizedBox(height: 20),
-
-                      // Title
                       Text(
-                        "CREATE ACCOUNT",
+                        "WELCOME!",
                         style: GoogleFonts.poppins(
-                          fontSize: 24,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "REGISTER NOW",
+                        style: GoogleFonts.poppins(
+                          fontSize: 28,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 30),
-
-                      // Name
                       TextFormField(
                         controller: _name,
                         decoration: InputDecoration(
                           labelText: "Name",
                           filled: true,
-                          fillColor: const Color(0xFFF2F4F7),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 16,
-                            horizontal: 20,
-                          ),
+                          fillColor: Color(0xFFF2F4F7),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide.none,
                           ),
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 16,
+                            horizontal: 20,
+                          ),
                         ),
                         validator:
                             (value) =>
-                                value!.isEmpty ? "Enter your name" : null,
+                                value!.isEmpty
+                                    ? "Please enter your name"
+                                    : null,
                       ),
                       const SizedBox(height: 16),
-
-                      // Email
                       TextFormField(
                         controller: _email,
                         decoration: InputDecoration(
                           labelText: "Email",
                           filled: true,
-                          fillColor: const Color(0xFFF2F4F7),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 16,
-                            horizontal: 20,
-                          ),
+                          fillColor: Color(0xFFF2F4F7),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide.none,
                           ),
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 16,
+                            horizontal: 20,
+                          ),
                         ),
                         validator:
                             (value) =>
-                                value!.isEmpty ? "Enter your email" : null,
+                                value!.isEmpty
+                                    ? "Please enter your email"
+                                    : null,
                       ),
                       const SizedBox(height: 16),
-
-                      // Password
                       TextFormField(
                         controller: _password,
-                        obscureText: true,
+                        obscureText: _obscurePassword,
                         decoration: InputDecoration(
                           labelText: "Password",
                           filled: true,
-                          fillColor: const Color(0xFFF2F4F7),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 16,
-                            horizontal: 20,
-                          ),
+                          fillColor: Color(0xFFF2F4F7),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide.none,
                           ),
-                        ),
-                        validator:
-                            (value) =>
-                                value!.length < 6
-                                    ? "Minimum 6 characters"
-                                    : null,
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Confirm Password
-                      TextFormField(
-                        controller: _confirmPassword,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: "Confirm Password",
-                          filled: true,
-                          fillColor: const Color(0xFFF2F4F7),
-                          contentPadding: const EdgeInsets.symmetric(
+                          contentPadding: EdgeInsets.symmetric(
                             vertical: 16,
                             horizontal: 20,
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: BorderSide.none,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed:
+                                () => setState(() {
+                                  _obscurePassword = !_obscurePassword;
+                                }),
                           ),
                         ),
                         validator:
                             (value) =>
-                                value != _password.text
-                                    ? "Passwords do not match"
+                                value!.isEmpty
+                                    ? "Please enter your password"
                                     : null,
                       ),
                       const SizedBox(height: 24),
-
-                      // Sign Up Button
-                      SizedBox(
-                        width: 205,
-                        height: 48,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.deepPurple[200],
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
+                      Center(
+                        child: SizedBox(
+                          width: 205,
+                          height: 48,
+                          child: ElevatedButton(
+                            onPressed: _isLoading ? null : register,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.deepPurple[200],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
                             ),
+                            child:
+                                _isLoading
+                                    ? CircularProgressIndicator()
+                                    : Text("Register"),
                           ),
-                          onPressed: _isLoading ? null : register,
-                          child:
-                              _isLoading
-                                  ? const CircularProgressIndicator()
-                                  : const Text("Sign Up"),
                         ),
                       ),
                       const SizedBox(height: 20),
-
-                      // Already have account
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text("Already have an account? "),
+                          Text("Already have an account? "),
                           TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacementNamed(context, '/Login');
-                            },
-                            child: const Text("Login"),
+                            onPressed:
+                                () => Navigator.pushReplacementNamed(
+                                  context,
+                                  '/Login',
+                                ),
+                            child: Text("Login"),
                           ),
                         ],
                       ),
